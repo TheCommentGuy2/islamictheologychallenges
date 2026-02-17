@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Interfaith Miracles Dilemma</title>
+    <link rel="icon" type="image/png" href="../icons/sparkle.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Work+Sans:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-deep: #0d0d12;
+        --bg-card: #1a1a24;
+        --bg-card-hover: #22222f;
+        --gold: #d4a843;
+        --gold-dim: #8a7230;
+        --red: #e05555;
+        --red-glow: #e0555533;
+        --orange: #e8843a;
+        --orange-glow: #e8843a33;
+        --blue: #5b9bd5;
+        --blue-glow: #5b9bd533;
+        --green: #3ecf8e;
+        --text-primary: #e8e4df;
+        --text-secondary: #9a9aa8;
+        --text-muted: #5a5a6a;
+        --border: #2a2a3a;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Work Sans", sans-serif;
+        background: linear-gradient(135deg, #0a0a0f 0%, #1a1a24 100%);
+        color: var(--text-primary);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 9999;
+      }
+
+      .container {
+        background: linear-gradient(145deg, var(--bg-card), #16161f);
+        padding: 48px 40px;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        max-width: 720px;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        border: 1px solid var(--border);
+      }
+
+      .header {
+        margin-bottom: 32px;
+        position: relative;
+      }
+
+      .header::after {
+        content: "";
+        position: absolute;
+        bottom: -16px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+      }
+
+      h1 {
+        font-family: "Crimson Pro", serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--gold);
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .subtitle {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: 300;
+      }
+
+      .progress-container {
+        margin: 24px 0;
+        padding: 0 20px;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 4px;
+        background: var(--border);
+        border-radius: 2px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+        transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 2px;
+      }
+
+      .progress-text {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin-top: 8px;
+        letter-spacing: 1px;
+      }
+
+      #step-content {
+        animation: fadeSlideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      @keyframes fadeSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .step-title {
+        font-family: "Crimson Pro", serif;
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: var(--text-primary);
+        line-height: 1.3;
+      }
+
+      .content {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: var(--text-secondary);
+        margin-bottom: 32px;
+        min-height: 70px;
+        font-weight: 300;
+      }
+
+      .content b {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      .content i {
+        color: var(--gold);
+      }
+
+      .info-tooltip {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        background: var(--gold-dim);
+        color: var(--bg-deep);
+        border-radius: 50%;
+        font-size: 0.75rem;
+        line-height: 18px;
+        text-align: center;
+        cursor: help;
+        margin-left: 6px;
+        font-weight: bold;
+        position: relative;
+      }
+
+      .info-tooltip:hover::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--bg-card-hover);
+        color: var(--text-primary);
+        padding: 10px 14px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        border: 1px solid var(--border);
+        z-index: 10;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        font-weight: 300;
+      }
+
+      .options {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      button {
+        padding: 16px 24px;
+        font-size: 1rem;
+        font-family: "Work Sans", sans-serif;
+        border: 1.5px solid var(--border);
+        background: var(--bg-card);
+        color: var(--text-primary);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        font-weight: 400;
+        letter-spacing: 0.3px;
+      }
+
+      button:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--gold);
+        box-shadow: 0 0 20px var(--gold-dim);
+        transform: translateY(-2px);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      .badge {
+        display: inline-block;
+        font-size: 0.7rem;
+        padding: 3px 8px;
+        border-radius: 4px;
+        margin-left: 8px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .badge-loop {
+        background: var(--orange-glow);
+        color: var(--orange);
+      }
+      .badge-fail {
+        background: var(--red-glow);
+        color: var(--red);
+      }
+      .badge-progress {
+        background: var(--blue-glow);
+        color: var(--blue);
+      }
+
+.menu-badge {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+}
+
+.menu-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.menu-btn img {
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+}
+
+.menu-btn:hover {
+    border-color: var(--gold);
+}
+
+.menu-btn:hover img {
+    opacity: 1;
+}
+
+.menu-popup {
+    display: none;
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    background: linear-gradient(145deg, var(--bg-card), #16161f);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 320px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 10000;
+}
+
+.menu-popup.show {
+    display: block;
+    animation: fadeSlideIn 0.3s ease;
+}
+
+.menu-section {
+    margin-bottom: 16px;
+}
+
+.menu-section:last-child {
+    margin-bottom: 0;
+}
+
+.menu-section p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.menu-section p:last-child {
+    margin-bottom: 0;
+}
+
+.menu-section strong {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.menu-section a {
+    color: var(--gold);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.menu-section a:hover {
+    color: var(--text-primary);
+}
+
+.menu-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 16px 0;
+}
+
+.menu-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.menu-close:hover {
+    color: var(--gold);
+}
+
+/* Google Translate styling within menu */
+#google_translate_element {
+    margin-top: 8px;
+}
+
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+
+body {
+    top: 0px !important;
+}
+
+.goog-te-gadget {
+    font-family: 'Work Sans', sans-serif !important;
+}
+
+.goog-te-gadget-simple {
+    background-color: rgba(255,255,255,0.05) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    padding: 6px 10px !important;
+    font-size: 0.8rem !important;
+    color: var(--text-primary) !important;
+    width: 100% !important;
+}
+
+.goog-te-gadget-simple:hover {
+    border-color: var(--gold) !important;
+}
+
+.goog-te-gadget-simple .goog-te-menu-value span {
+    color: var(--text-primary) !important;
+}
+
+.goog-te-gadget-icon {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .menu-badge {
+        top: auto;
+        bottom: 20px;
+        right: auto;
+        left: 20px;
+    }
+    
+    .menu-popup {
+        top: auto;
+        bottom: 70px;
+        right: auto;
+        left: 20px;
+        max-width: calc(100vw - 40px);
+    }
+}
+
+/* Google Translate styling within menu */
+#google_translate_element {
+    margin-top: 8px;
+}
+
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+
+body {
+    top: 0px !important;
+}
+
+.goog-te-gadget {
+    font-family: 'Work Sans', sans-serif !important;
+}
+
+.goog-te-gadget-simple {
+    background-color: rgba(255,255,255,0.05) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    padding: 6px 10px !important;
+    font-size: 0.8rem !important;
+    color: var(--text-primary) !important;
+    width: 100% !important;
+}
+
+.goog-te-gadget-simple:hover {
+    border-color: var(--gold) !important;
+}
+
+.goog-te-gadget-simple .goog-te-menu-value span {
+    color: var(--text-primary) !important;
+}
+
+.goog-te-gadget-icon {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .menu-badge {
+        top: auto;
+        bottom: 20px;
+        right: auto;
+        left: 20px;
+    }
+    
+    .menu-popup {
+        top: auto;
+        bottom: 70px;
+        right: auto;
+        left: 20px;
+        max-width: calc(100vw - 40px);
+    }
+}
+
+      .controls {
+        margin-top: 36px;
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid var(--border);
+        padding-top: 20px;
+      }
+
+      .control-btn {
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        cursor: pointer;
+        padding: 8px 12px;
+        font-family: "Work Sans", sans-serif;
+        transition: color 0.2s;
+        letter-spacing: 0.5px;
+      }
+
+      .control-btn:hover {
+        color: var(--gold);
+        background: none;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .conceded {
+        color: var(--red);
+        font-weight: 700;
+        font-size: 2.2rem;
+        margin-top: 24px;
+        display: block;
+        animation: pulse 2s ease-in-out infinite;
+        font-family: "Crimson Pro", serif;
+        letter-spacing: 4px;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.6;
+        }
+      }
+
+      .conclusion-box {
+        background: linear-gradient(135deg, #1e1e2a, #16161f);
+        border: 1px solid var(--red);
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: 0 0 20px var(--red-glow);
+        text-align: left;
+      }
+
+      .conclusion-box p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
+        margin: 0;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 32px 24px;
+        }
+
+        h1 {
+          font-size: 1.5rem;
+        }
+
+        .step-title {
+          font-size: 1.3rem;
+        }
+
+        .content {
+          font-size: 1rem;
+        }
+
+        button {
+          font-size: 0.95rem;
+          padding: 14px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="menu-badge">
+    <button class="menu-btn" onclick="toggleMenu()">
+        <img src="../icons/menu.png" alt="Menu">
+    </button>
+    <div class="menu-popup" id="menuPopup">
+        <button class="menu-close" onclick="toggleMenu()">×</button>
+        
+        <div class="menu-section">
+            <p><strong><img src="../icons/language.png" alt="Language" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"> Language</strong></p>
+            <div id="google_translate_element"></div>
+        </div>
+        
+        <div class="menu-divider"></div>
+        
+        <div class="menu-section">
+            <p><strong>Icon Credits</strong></p>
+            <p>Sparkle icon by <a href="https://www.flaticon.com/free-icons/sparkle" target="_blank" rel="noopener">kornkun - Flaticon</a></p>
+            <p>Menu icon by <a href="https://www.flaticon.com/free-icons/menu" target="_blank" rel="noopener">Cloud Nine - Flaticon</a></p>
+            <p>Language icon by <a href="https://www.flaticon.com/free-icons/extensible-markup-language" target="_blank" rel="noopener">Freepik - Flaticon</a></p>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+      <div class="header">
+        <h1>Interfaith Miracles Dilemma</h1>
+        <div class="subtitle">Why Do Prayers "Work" In All Religions?</div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+        </div>
+        <div class="progress-text" id="progressText">Step 1 of 6</div>
+      </div>
+
+      <div id="step-content">
+        <!-- Dynamic Content -->
+      </div>
+    </div>
+
+    <script>
+      const logicTree = {
+        home: {
+          title: "The Interfaith Miracles Dilemma",
+          text: `<p style="margin-bottom: 16px; line-height: 1.8;">Christians report healings at Lourdes. Hindus get answered prayers to Ganesha. Buddhists experience spiritual breakthroughs through meditation. <b>Miracles and answered prayers occur across all religions.</b></p>
+                
+                <p style="margin-bottom: 16px; line-height: 1.8;">For Islam, this creates an impossible problem: <b>Shirk</b> (associating partners with Allah) is the unforgivable sin—worse than any other. Yet when a Hindu mother prays desperately to an idol for her sick child, and the child recovers, <b>Allah has just validated shirk.</b></p>
+                
+                <p style="margin-bottom: 16px; line-height: 1.8;">From her perspective: <i>"I prayed to Ganesha, my child was healed—this confirms my path is right."</i> But she's committing the worst possible sin. <b>Why would Allah provide miracles that strengthen false beliefs?</b></p>
+                
+                <p style="margin-bottom: 16px; line-height: 1.8;">This challenge systematically examines every explanation for cross-religious miracles and shows they all fail.</p>`,
+          options: [
+            { label: "Begin the Challenge", next: "p1", badge: "progress" },
+          ],
+          isHome: true,
+        },
+        p1: {
+          title: "Premise 1: Cross-Religious Miracles Are Documented",
+          text: "Do you accept that followers of <b>all major religions</b> report answered prayers, miraculous healings, and spiritual experiences? (This is empirically documented—Lourdes healings, Hindu temple miracles, Buddhist meditation breakthroughs, etc.)",
+          tooltip:
+            "This is observable fact, not disputed. The question is how to explain these phenomena.",
+          options: [
+            {
+              label: "Yes, all religions report miracles",
+              next: "p2",
+              badge: "progress",
+            },
+            {
+              label: "No, only Islamic miracles are real",
+              next: "fail_special_pleading",
+              badge: "fail",
+            },
+          ],
+          step: 1,
+          total: 6,
+        },
+        fail_special_pleading: {
+          title: "Special Pleading",
+          text: "Claiming only Islamic miracles are real while dismissing identical claims from other religions applies different standards to identical evidence. The documentation quality, witness testimony, and medical records are equivalent across religions. <b>What makes Islamic miracles different?</b>",
+          tooltip:
+            "Any standard used to validate Islamic miracles must be applied consistently to other religions' claims.",
+          options: [
+            {
+              label:
+                "Islamic miracles have stronger documentation / more witnesses",
+              next: "fail_documentation",
+              badge: "fail",
+            },
+            {
+              label: "I accept all miracle claims are equally unreliable",
+              next: "fail_special_pleading_concede",
+              badge: "fail",
+            },
+          ],
+          step: 1,
+          total: 6,
+        },
+        fail_documentation: {
+          title: "Documentation Standard Fails",
+          text: "The Lourdes Medical Bureau in France has documented cases since 1858 with full medical records — X-rays, physician testimony, pre- and post-recovery documentation — reviewed by a board including non-Catholic doctors. Hindu temples record thousands of testimonies with equivalent witness quality to Islamic miracle claims. The standard you're applying to validate Islamic miracles, when applied consistently, validates these too. <b>If documentation quality is your standard, you've validated miracles across all religions.</b> If you dismiss theirs despite equivalent documentation, you're applying a standard that has no principle behind it — only conclusion-first reasoning.",
+          conclusion:
+            "Documentation standards applied consistently validate cross-religious miracles equally. You cannot use documentation as a filter for Islamic miracles without accepting others' claims by the same standard.",
+          isEnd: true,
+        },
+        fail_special_pleading_concede: {
+          title: "Miracle Claims Unreliable",
+          text: "You've conceded that miracle claims cannot reliably distinguish true religion from false. This removes a major category of Islamic apologetics — personal testimony, answered prayers, and miraculous healings cannot be used as evidence for Islam's truth since all religions produce equivalent claims.",
+          conclusion:
+            "You've removed miracle testimony as valid religious evidence. A consistent epistemology cannot accept Islamic miracles while rejecting others of identical evidential quality.",
+          isEnd: true,
+        },
+        p2: {
+          title: "Premise 2: Shirk is the Worst Sin",
+          text: "In Islam, <b>shirk</b> (associating partners with Allah—praying to idols, saints, false gods) is the only unforgivable sin. Quran 4:48 states Allah may forgive anything except shirk. Do you accept this is core Islamic doctrine?",
+          tooltip:
+            "This is non-negotiable in Islamic theology. Shirk is worse than murder, worse than any other sin.",
+          options: [
+            {
+              label: "Yes, shirk is the unforgivable sin",
+              next: "p3",
+              badge: "progress",
+            },
+            {
+              label: "No, shirk isn't that serious",
+              next: "fail_shirk_minimized",
+              badge: "fail",
+            },
+          ],
+          step: 2,
+          total: 6,
+        },
+        fail_shirk_minimized: {
+          title: "Core Doctrine Abandoned",
+          text: "If shirk is not the worst sin, you've abandoned a foundational Islamic teaching. Quran 4:48, 4:116, 5:72 explicitly state shirk is unforgivable and leads to Hell. The entire emphasis on tawhid (Allah's oneness) depends on shirk being the gravest violation. If you minimize shirk, you've undermined: (1) The urgency of monotheism, (2) The distinction between Islam and polytheism, (3) The severity of idol worship. You cannot maintain Islam's core message while downplaying shirk.",
+          conclusion:
+            "You've abandoned a central Islamic doctrine to avoid the dilemma. This proves the traditional position is incoherent.",
+          isEnd: true,
+        },
+        p3: {
+          title: "Premise 3: The Validation Problem",
+          text: "When a Hindu prays to an idol and receives a 'miracle' (child heals, job comes through), this <b>psychologically reinforces</b> their false belief. From their perspective: <i>'My prayer worked—I'm on the right path.'</i> This is positive reinforcement for shirk. <b>Who caused this reinforcing 'miracle'?</b>",
+          tooltip:
+            "Someone/something answered the prayer. The question is: who, and why would they validate shirk?",
+          options: [
+            {
+              label: "Allah caused it",
+              next: "fail_allah_validates",
+              badge: "fail",
+            },
+            {
+              label: "Satan/jinn caused it",
+              next: "satan_defense",
+              badge: "progress",
+            },
+            {
+              label: "It's coincidence/placebo",
+              next: "coincidence_defense",
+              badge: "progress",
+            },
+            {
+              label: "Natural healing / the child would have recovered anyway",
+              next: "fail_natural_healing",
+              badge: "fail",
+            },
+            {
+              label: "Istidraj—Allah deceives them as punishment",
+              next: "istidraj_defense",
+              badge: "loop",
+            },
+          ],
+          step: 3,
+          total: 6,
+        },
+        fail_allah_validates: {
+          title: "Divine Validation of Shirk",
+          text: "If Allah directly answers prayers directed to false gods, He is <b>validating shirk</b>—providing positive feedback for the worst sin. This makes Him complicit in idolatry. A sincere Hindu who sees her prayers 'work' will reasonably conclude her religion is true. Allah has given her evidence FOR shirk, then will punish her eternally FOR shirk. This is entrapment. You cannot maintain Allah is guiding humanity while He actively misleads billions into the worst sin.",
+          conclusion:
+            "You've admitted Allah validates shirk with miracles, then punishes people for being misled by His own signs. This makes Allah deceptive, contradicting His attribute Al-Hadi (The Guide).",
+          isEnd: true,
+        },
+        fail_natural_healing: {
+          title: "Natural Healing Explanation Backfires",
+          text: "You claim the child recovered naturally — medicine working, immune system doing its job, spontaneous remission. <b>This is probably the most scientifically honest answer.</b> But it creates an immediate problem:<br><br>If natural processes explain the Hindu mother's 'miracle,' then natural processes equally explain Islamic miracles. The pattern across all religions is identical — same recovery rates, same types of healings, same correlation with prayer intensity regardless of which deity is invoked. <b>Natural healing does not discriminate by religion.</b><br><br>You've now committed to a naturalistic explanation that removes divine intervention from answered prayers entirely. Allah is not healing Muslim children either — bodies heal, and believers attribute it to prayer. This means: (1) <b>Allah does not supernaturally intervene</b> in response to prayer, (2) <b>Answered prayers are not evidence for Islam</b>, (3) <b>The entire category of personal miracle testimony is unreliable</b> as religious evidence.",
+          conclusion:
+            "You've adopted a naturalistic explanation that removes divine intervention from all answered prayers equally — Islamic ones included. You've resolved the dilemma by eliminating miracles as evidence for any religion.",
+          isEnd: true,
+        },
+        satan_defense: {
+          title: "The Satan/Jinn Defense Fails",
+          text: "Jinn and Satan can whisper, suggest, and mislead — but they cannot create matter, alter physical reality, or cause genuine physical healings. Only Allah has creative power over the physical world (Quran 35:2).<br><br>So if these are real, documented physical recoveries, <b>only Allah could have caused them.</b> The jinn defense is ruled out by Islamic theology itself. Allah remains responsible for validating shirk — and the dilemma stands.",
+          conclusion:
+            "Islamic theology itself rules out Satan and jinn as the cause of real physical miracles. Only Allah can do that — making Him responsible for validating shirk.",
+          isEnd: true,
+        },
+        coincidence_defense: {
+          title: "The Coincidence/Placebo Defense",
+          text: "You claim most 'miracles' are coincidence, natural remission, or placebo effects. <b>This is probably true.</b> But it creates a problem: If this explains Hindu/Christian miracles, it also explains Islamic miracles. The pattern is identical across religions:<br><br>• Same types of 'miracles' (healing, answered prayers)<br>• Same frequency rates<br>• Same correlation with faith strength (not truth)<br>• Same lack of limb regeneration or unambiguous miracles<br><br><b>The common factor is belief intensity, not deity truth.</b> Do you accept this?",
+          tooltip:
+            "This explanation works, but it undermines Islamic miracle claims equally.",
+          options: [
+            {
+              label: "Yes, it's psychological—faith itself produces results",
+              next: "conclusion_psychological",
+              badge: "fail",
+            },
+            {
+              label: "No, Islamic miracles are still real/different",
+              next: "fail_special_pleading",
+              badge: "fail",
+            },
+          ],
+          step: 4,
+          total: 6,
+        },
+        conclusion_psychological: {
+          title: "Conclusion: Faith, Not Truth",
+          text: "You've conceded the pattern shows <b>faith intensity, not religious truth</b>, produces 'miraculous' results. This means: (1) <b>Allah is not supernaturally intervening</b> (it's placebo/psychology), (2) <b>Answered prayers in Islam are also placebo</b>, (3) <b>True religion is irrelevant</b> to whether prayers 'work', (4) <b>Miracles cannot be evidence for Islam's truth</b> since all religions have equivalent psychological effects. You've adopted a naturalistic explanation that removes the supernatural from religion entirely.",
+          conclusion:
+            "You've admitted miracles are psychological, not divine. This removes a major category of evidence for Islam and makes religious truth irrelevant to experiential confirmation.",
+          isEnd: true,
+        },
+        istidraj_defense: {
+          title: "The Istidraj (Divine Deception) Defense",
+          text: "<b>Istidraj</b>: The doctrine that Allah gives blessings to disbelievers to lead them to greater punishment. You claim Allah answers shirk-filled prayers to <b>deliberately deceive them</b> — deepening their confidence in falsehood so He can punish them more severely.<br><br>But consider who we are actually talking about. <b>The vast majority of people in other religions are not defiant rebels who studied Islam and consciously rejected it.</b> They are ordinary people — a Hindu mother praying for her sick child, a Christian grandmother praying for her family — who were born into their faith, raised in it sincerely, and have never been presented with compelling reason to abandon it. (For why the 'conscious rejection' argument fails on its own terms, see the <i>Sincere Rejection</i> challenge.)<br><br>Istidraj applied to these people means: Allah gave a sincere, ordinary believer what looked like divine confirmation of her faith, <b>specifically to ensure she dies in the wrong religion and suffers eternally for it.</b> She did not choose deception. She followed the only signs she was given.<br><br><b>This is not a test. This is a trap.</b> Allah engineered her damnation through false signals, then punishes her for the result.<br><br><b>How is this compatible with Allah's attributes?</b>",
+          tooltip:
+            "Istidraj applied to sincere ordinary believers — not conscious rejecters — makes Allah an architect of their damnation, not a just judge.",
+          options: [
+            {
+              label: "It's a test — life is supposed to be ambiguous",
+              next: "fail_unjust_test",
+              badge: "fail",
+            },
+            {
+              label: "Allah can do whatever He wants (divine command)",
+              next: "fail_divine_command",
+              badge: "fail",
+            },
+            {
+              label: "This contradicts His attributes (Al-Hadi, Ar-Rahman)",
+              next: "conclusion_contradiction",
+              badge: "fail",
+            },
+          ],
+          step: 4,
+          total: 6,
+        },
+        fail_unjust_test: {
+          title: "The Unjust Test",
+          text: "A just test requires: (1) Equal starting conditions, (2) Accurate feedback (not false signals), (3) Punishment proportional to fault. Istidraj violates all three: People are born into different religions (unequal start), Allah gives them false confirmation (misleading feedback), then punishes them eternally (infinite punishment for being misled).",
+          conclusion:
+            "You've admitted the 'test' is rigged through divine deception. This contradicts Al-Adl (The Just). Allah cannot be perfectly just while actively entrapping people through false signs.",
+          isEnd: true,
+        },
+        fail_divine_command: {
+          title: "Divine Command Conceded",
+          text: "If 'Allah can do whatever He wants' is your defense, you've abandoned <b>objective morality</b> and Allah's attributes (merciful, just, wise). Under this view: (1) 'Good' means 'whatever Allah does,' making morality arbitrary, (2) <b>Deception becomes good</b> if Allah does it, (3) <b>Justice becomes meaningless</b>—Allah could torture innocents and it would be 'just' by definition. You've made Islam <b>Divine Command Theory</b>—might makes right. This collapses into the <i>Euthyphro Dilemma</i> (see other challenge). <b>Moreover</b>: If Allah can deceive, how do you know the Quran isn't also deception?",
+          conclusion:
+            "You've abandoned objective morality and made Allah's trustworthiness self-refuting. If deception is permissible for Allah, you cannot trust His revelation.",
+          isEnd: true,
+        },
+        conclusion_contradiction: {
+          title: "Conclusion: Divine Attributes Contradicted",
+          text: "You've recognized that Istidraj (divine deception through false miracles) contradicts Allah's essential attributes:<br><br>• <b>Al-Hadi (The Guide)</b>: But He's misguiding through false signs<br>• <b>Ar-Rahman (Most Merciful)</b>: But He's entrapping people through deception<br>• <b>Al-Adl (The Just)</b>: But punishing people for following His false signs is unjust<br>• <b>Al-Hakim (The Wise)</b>: But deliberately confusing truth-seekers is foolish<br><br><b>You cannot maintain both:</b> (1) Allah has these attributes, AND (2) Allah validates shirk through miracles. The interfaith miracles phenomenon proves traditional Islamic theology is internally contradictory.",
+          conclusion:
+            "You've admitted that explaining cross-religious miracles contradicts Allah's attributes. The phenomenon cannot be reconciled with traditional Islamic theology.",
+          isEnd: true,
+        },
+      };
+
+      let historyStack = [];
+      let currentStep = "home";
+
+      const stepContent = document.getElementById("step-content");
+      const progressBar = document.getElementById("progressBar");
+      const progressText = document.getElementById("progressText");
+
+      function renderStep(stepId) {
+        const step = logicTree[stepId];
+
+        if (step.isHome) {
+          progressBar.style.width = "0%";
+          progressText.textContent = "";
+          document.querySelector(".progress-container").style.display = "none";
+        } else {
+          document.querySelector(".progress-container").style.display = "block";
+          if (step.step && step.total) {
+            const progress = (step.step / step.total) * 100;
+            progressBar.style.width = progress + "%";
+            progressText.textContent = `Step ${step.step} of ${step.total}`;
+          } else {
+            progressBar.style.width = "100%";
+            progressText.textContent = "Conclusion";
+          }
+        }
+
+        let optionsHtml = "";
+        if (step.options) {
+          step.options.forEach((opt) => {
+            let badgeHtml = opt.badge
+              ? `<span class="badge badge-${opt.badge}"></span>`
+              : "";
+            optionsHtml += `<button onclick="handleOption('${opt.next}')">${opt.label}${badgeHtml}</button>`;
+          });
+        }
+
+        let tooltipHtml = step.tooltip
+          ? `<span class="info-tooltip" data-tooltip="${step.tooltip}">?</span>`
+          : "";
+
+        let conclusionHtml = "";
+        if (step.isEnd && step.conclusion) {
+          conclusionHtml = `
+                <div class="conclusion-box">
+                    <p><b>What you just proved:</b> ${step.conclusion}</p>
+                </div>
+                <span class="conceded">✦ CONCEDED ✦</span>
+            `;
+        }
+
+        let controlsHtml = `
+            <div class="controls">
+                <button class="control-btn" onclick="goBack()" ${historyStack.length === 0 ? 'style="visibility:hidden;"' : ""}>← Go Back</button>
+                <button class="control-btn" onclick="location.href='../index.html'">← All Arguments</button>
+                <button class="control-btn" onclick="restart()">Restart ↺</button>
+            </div>
+        `;
+
+        stepContent.innerHTML = `
+            <div class="step-title">${step.title}${tooltipHtml}</div>
+            <div class="content">${step.text}</div>
+            <div class="options">${optionsHtml}</div>
+            ${conclusionHtml}
+            ${controlsHtml}
+        `;
+
+        stepContent.style.animation = "none";
+        setTimeout(() => {
+          stepContent.style.animation =
+            "fadeSlideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1)";
+        }, 10);
+      }
+
+      function handleOption(nextStepId) {
+        historyStack.push(currentStep);
+        currentStep = nextStepId;
+        renderStep(currentStep);
+      }
+
+      function goBack() {
+        if (historyStack.length > 0) {
+          currentStep = historyStack.pop();
+          renderStep(currentStep);
+        }
+      }
+
+      function restart() {
+        historyStack = [];
+        currentStep = "home";
+        renderStep(currentStep);
+      }
+
+      renderStep("home");
+    </script>
+    <script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    includedLanguages: 'ar,ur,tr,fa,id,ms,bn,hi,fr,es,de,ru,zh-CN',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+
+function toggleMenu() {
+    document.getElementById('menuPopup').classList.toggle('show');
+}
+
+// Close menu when clicking outside
+document.addEventListener('click', function(event) {
+    const popup = document.getElementById('menuPopup');
+    const btn = document.querySelector('.menu-btn');
+    if (popup && btn && !popup.contains(event.target) && !btn.contains(event.target)) {
+        popup.classList.remove('show');
+    }
+});
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  </body>
+</html>

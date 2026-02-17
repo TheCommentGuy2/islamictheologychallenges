@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islamic Theology Challenges</title>
+    <link rel="icon" type="image/png" href="icons/sparkle.png">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+    --bg-deep: #0d0d12;
+    --bg-card: #1a1a24;
+    --bg-card-hover: #22222f;
+    --gold: #d4a843;
+    --gold-dim: #8a7230;
+    --red: #e05555;
+    --red-glow: #e0555533;
+    --orange: #e8843a;
+    --blue: #5b9bd5;
+    --green: #3ecf8e;
+    --text-primary: #e8e4df;
+    --text-secondary: #9a9aa8;
+    --text-muted: #5a5a6a;
+    --border: #2a2a3a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Work Sans', sans-serif;
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a24 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 40px 20px;
+    position: relative;
+    overflow-x: hidden;
+    top: 0px !important;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 60px 20px;
+    background: linear-gradient(145deg, var(--bg-card), #16161f);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    position: relative;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+h1 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+.intro {
+    background: linear-gradient(145deg, var(--bg-card), #16161f);
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    margin-bottom: 48px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.intro p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.intro p:last-child {
+    margin-bottom: 0;
+}
+
+.intro b {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.arguments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 60px;
+}
+
+.argument-card {
+    background: linear-gradient(145deg, var(--bg-card), #16161f);
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+}
+
+.argument-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--gold);
+    box-shadow: 0 0 30px var(--gold-dim);
+}
+
+.argument-icon {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.argument-icon img {
+    width: 48px;
+    height: 48px;
+    opacity: 0.9;
+}
+
+.argument-card:hover .argument-icon img {
+    opacity: 1;
+}
+
+.argument-title {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.argument-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.argument-target {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.difficulty {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.diff-devastating { background: rgba(224, 85, 85, 0.2); color: var(--red); }
+.diff-strong { background: rgba(232, 132, 58, 0.2); color: var(--orange); }
+.diff-solid { background: rgba(91, 155, 213, 0.2); color: var(--blue); }
+
+.menu-badge {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+}
+
+.menu-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.menu-btn img {
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+}
+
+.menu-btn:hover {
+    border-color: var(--gold);
+}
+
+.menu-btn:hover img {
+    opacity: 1;
+}
+
+.menu-popup {
+    display: none;
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    background: linear-gradient(145deg, var(--bg-card), #16161f);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 320px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 10000;
+}
+
+.menu-popup.show {
+    display: block;
+    animation: fadeSlideIn 0.3s ease;
+}
+
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.menu-section {
+    margin-bottom: 16px;
+}
+
+.menu-section:last-child {
+    margin-bottom: 0;
+}
+
+.menu-section p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.menu-section p:last-child {
+    margin-bottom: 0;
+}
+
+.menu-section strong {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.menu-section a {
+    color: var(--gold);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.menu-section a:hover {
+    color: var(--text-primary);
+}
+
+.menu-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 16px 0;
+}
+
+.menu-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.menu-close:hover {
+    color: var(--gold);
+}
+
+/* Google Translate styling within menu */
+#google_translate_element {
+    margin-top: 8px;
+}
+
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+
+.goog-te-gadget {
+    font-family: 'Work Sans', sans-serif !important;
+}
+
+.goog-te-gadget-simple {
+    background-color: rgba(255,255,255,0.05) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 6px !important;
+    padding: 6px 10px !important;
+    font-size: 0.8rem !important;
+    color: var(--text-primary) !important;
+    width: 100% !important;
+}
+
+.goog-te-gadget-simple:hover {
+    border-color: var(--gold) !important;
+}
+
+.goog-te-gadget-simple .goog-te-menu-value span {
+    color: var(--text-primary) !important;
+}
+
+.goog-te-gadget-icon {
+    display: none !important;
+}
+
+.footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border);
+}
+
+.footer a {
+    color: var(--gold);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer a:hover {
+    color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .tagline {
+        font-size: 1rem;
+    }
+
+    .arguments-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .intro {
+        padding: 28px;
+    }
+
+    .menu-badge {
+        top: auto;
+        bottom: 20px;
+        right: auto;
+        left: 20px;
+    }
+    
+    .menu-popup {
+        top: auto;
+        bottom: 70px;
+        right: auto;
+        left: 20px;
+        max-width: calc(100vw - 40px);
+    }
+}
+    </style>
+</head>
+<body>
+
+<div class="menu-badge">
+    <button class="menu-btn" onclick="toggleMenu()">
+        <img src="icons/menu.png" alt="Menu">
+    </button>
+    <div class="menu-popup" id="menuPopup">
+        <button class="menu-close" onclick="toggleMenu()">×</button>
+        
+        <div class="menu-section">
+            <p><strong><img src="icons/language.png" alt="Language" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"> Language</strong></p>
+            <div id="google_translate_element"></div>
+        </div>
+        
+        <div class="menu-divider"></div>
+        
+        <div class="menu-section">
+            <p><strong>Icon Credits</strong></p>
+            <p>Sparkle icon by <a href="https://www.flaticon.com/free-icons/sparkle" target="_blank" rel="noopener">kornkun - Flaticon</a></p>
+            <p>Menu icon by <a href="https://www.flaticon.com/free-icons/menu" target="_blank" rel="noopener">Cloud Nine - Flaticon</a></p>
+            <p>Language icon by <a href="https://www.flaticon.com/free-icons/extensible-markup-language" target="_blank" rel="noopener">Freepik - Flaticon</a></p>
+            <p>Miracle icon by <a href="https://www.flaticon.com/free-icons/miracle" target="_blank" rel="noopener">AbtoCreative - Flaticon</a></p>
+            <p>Wrong icon by <a href="https://www.flaticon.com/free-icons/wrong" target="_blank" rel="noopener">Freepik - Flaticon</a></p>
+            <p>Reject icon by <a href="https://www.flaticon.com/free-icons/reject" target="_blank" rel="noopener">Parzival' 1997 - Flaticon</a></p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="hero">
+        <h1>Islamic Theology Challenges</h1>
+        <div class="tagline">
+            Rigorous logical examinations of Islamic theological arguments and doctrines
+        </div>
+    </div>
+
+    <div class="intro">
+        <p>These are systematic logical analyses of specific arguments used to justify Islamic doctrines and defend traditional Islamic theology.</p>
+        
+        <p>Each challenge presents a logical tree where <b>you</b> choose how to defend the position. Every path is explored. Every response is tested. The logic reveals the consequences.</p>
+        
+        <p>These arguments have been refined through extensive debate with Muslim apologists and draw on both Islamic theology and contemporary philosophy of religion.</p>
+    </div>
+
+    <div class="arguments-grid">
+<a href="challenges/euthyphro.html" class="argument-card">
+    <span class="argument-icon"><img src="challenge-icons/dilemma.png" alt="Dilemma"></span>
+    <div class="argument-title">The Euthyphro Dilemma</div>
+            <div class="argument-desc">
+                Is something good because God commands it, or does God command it because it is good? This dilemma challenges whether objective morality can be grounded in God.
+            </div>
+            <div class="argument-target">Targets: Divine Command Theory, Moral Arguments for God</div>
+        </a>
+
+<a href="challenges/sincere-rejection.html" class="argument-card">
+    <span class="argument-icon"><img src="challenge-icons/sincere.png" alt="Rejection"></span>
+    <div class="argument-title">The Sincere Rejection Problem</div>
+            <div class="argument-desc">
+                Can billions of non-Muslims really be "arrogantly rejecting truth they know"? Human psychology makes this impossible. This challenges doctrines of eternal punishment for honest disbelief.
+            </div>
+            <div class="argument-target">Targets: Islamic Hell doctrine, "Arrogant rejection" theology</div>
+        </a>
+
+<a href="challenges/interfaith-miracles.html" class="argument-card">
+    <span class="argument-icon"><img src="challenge-icons/interfaith.png" alt="Miracle"></span>
+    <div class="argument-title">The Interfaith Miracles Dilemma</div>
+            <div class="argument-desc">
+                Why do prayers "work" in all religions? If Allah answers prayers directed to idols, He validates shirk—the worst sin. This creates an impossible theological problem.
+            </div>
+            <div class="argument-target">Targets: Islamic exclusivism, Miracle claims as evidence</div>
+        </a>
+    </div>
+
+    <div class="footer">
+    <p>These challenges are offered in pursuit of intellectual honesty and philosophical rigor.</p>
+    <p style="margin-top: 12px;">If you find logical errors or have substantive responses, contact: <a href="mailto:islamic.theology.challenges@outlook.com">islamic.theology.challenges@outlook.com</a></p>
+    <p style="margin-top: 8px; font-size: 0.85rem; color: var(--text-muted);">Thoughtful engagement and critique are welcomed.</p>
+</div>
+
+<script>
+function toggleAttribution() {
+    document.getElementById('attributionPopup').classList.toggle('show');
+}
+
+document.addEventListener('click', function(event) {
+    const popup = document.getElementById('attributionPopup');
+    const btn = document.querySelector('.attribution-btn');
+    if (!popup.contains(event.target) && !btn.contains(event.target)) {
+        popup.classList.remove('show');
+    }
+});
+</script>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    includedLanguages: 'ar,ur,tr,fa,id,ms,bn,hi,fr,es,de,ru,zh-CN',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+
+function toggleMenu() {
+    document.getElementById('menuPopup').classList.toggle('show');
+}
+
+// Close menu when clicking outside
+document.addEventListener('click', function(event) {
+    const popup = document.getElementById('menuPopup');
+    const btn = document.querySelector('.menu-btn');
+    if (popup && btn && !popup.contains(event.target) && !btn.contains(event.target)) {
+        popup.classList.remove('show');
+    }
+});
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
