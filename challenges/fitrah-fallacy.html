@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Fitrah Fallacy</title>
+    <link rel="icon" type="image/png" href="../icons/sparkle.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Work+Sans:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-deep: #0d0d12;
+        --bg-card: #1a1a24;
+        --bg-card-hover: #22222f;
+        --gold: #d4a843;
+        --gold-dim: #8a7230;
+        --red: #e05555;
+        --red-glow: #e0555533;
+        --orange: #e8843a;
+        --orange-glow: #e8843a33;
+        --blue: #5b9bd5;
+        --blue-glow: #5b9bd533;
+        --green: #3ecf8e;
+        --text-primary: #e8e4df;
+        --text-secondary: #9a9aa8;
+        --text-muted: #5a5a6a;
+        --border: #2a2a3a;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Work Sans", sans-serif;
+        background: linear-gradient(135deg, #0a0a0f 0%, #1a1a24 100%);
+        color: var(--text-primary);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        position: relative;
+        overflow-x: hidden;
+        top: 0px !important;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 9999;
+      }
+
+      .container {
+        background: linear-gradient(145deg, var(--bg-card), #16161f);
+        padding: 48px 40px;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        max-width: 720px;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        border: 1px solid var(--border);
+      }
+
+      .header {
+        margin-bottom: 32px;
+        position: relative;
+      }
+
+      .header::after {
+        content: "";
+        position: absolute;
+        bottom: -16px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+      }
+
+      h1 {
+        font-family: "Crimson Pro", serif;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--gold);
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .subtitle {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: 300;
+      }
+
+      .progress-container {
+        margin: 24px 0;
+        padding: 0 20px;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 4px;
+        background: var(--border);
+        border-radius: 2px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+        transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 2px;
+      }
+
+      .progress-text {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin-top: 8px;
+        letter-spacing: 1px;
+      }
+
+      #step-content {
+        animation: fadeSlideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      @keyframes fadeSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .step-title {
+        font-family: "Crimson Pro", serif;
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: var(--text-primary);
+        line-height: 1.3;
+      }
+
+      .content {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: var(--text-secondary);
+        margin-bottom: 32px;
+        min-height: 70px;
+        font-weight: 300;
+      }
+
+      .content b {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      .content i {
+        color: var(--gold);
+      }
+
+      .info-tooltip {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        background: var(--gold-dim);
+        color: var(--bg-deep);
+        border-radius: 50%;
+        font-size: 0.75rem;
+        line-height: 18px;
+        text-align: center;
+        cursor: help;
+        margin-left: 6px;
+        font-weight: bold;
+        position: relative;
+      }
+
+      .info-tooltip:hover::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--bg-card-hover);
+        color: var(--text-primary);
+        padding: 10px 14px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        border: 1px solid var(--border);
+        z-index: 10;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        font-weight: 300;
+      }
+
+      .options {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      button {
+        padding: 16px 24px;
+        font-size: 1rem;
+        font-family: "Work Sans", sans-serif;
+        border: 1.5px solid var(--border);
+        background: var(--bg-card);
+        color: var(--text-primary);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        font-weight: 400;
+        letter-spacing: 0.3px;
+      }
+
+      button:hover {
+        background: var(--bg-card-hover);
+        border-color: var(--gold);
+        box-shadow: 0 0 20px var(--gold-dim);
+        transform: translateY(-2px);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      .badge {
+        display: inline-block;
+        font-size: 0.7rem;
+        padding: 3px 8px;
+        border-radius: 4px;
+        margin-left: 8px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .badge-loop {
+        background: var(--orange-glow);
+        color: var(--orange);
+      }
+      .badge-fail {
+        background: var(--red-glow);
+        color: var(--red);
+      }
+      .badge-progress {
+        background: var(--blue-glow);
+        color: var(--blue);
+      }
+
+      .controls {
+        margin-top: 36px;
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid var(--border);
+        padding-top: 20px;
+      }
+
+      .control-btn {
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        cursor: pointer;
+        padding: 8px 12px;
+        font-family: "Work Sans", sans-serif;
+        transition: color 0.2s;
+        letter-spacing: 0.5px;
+      }
+
+      .control-btn:hover {
+        color: var(--gold);
+        background: none;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .conceded {
+        color: var(--red);
+        font-weight: 700;
+        font-size: 2.2rem;
+        margin-top: 24px;
+        display: block;
+        animation: pulse 2s ease-in-out infinite;
+        font-family: "Crimson Pro", serif;
+        letter-spacing: 4px;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.6;
+        }
+      }
+
+      .conclusion-box {
+        background: linear-gradient(135deg, #1e1e2a, #16161f);
+        border: 1px solid var(--red);
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: 0 0 20px var(--red-glow);
+        text-align: left;
+      }
+
+      .conclusion-box p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
+        margin: 0;
+      }
+
+      .menu-badge {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 10000;
+      }
+
+      .menu-btn {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        color: var(--text-muted);
+        padding: 8px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+      }
+
+      .menu-btn img {
+        width: 20px;
+        height: 20px;
+        opacity: 0.7;
+      }
+
+      .menu-btn:hover {
+        border-color: var(--gold);
+      }
+
+      .menu-btn:hover img {
+        opacity: 1;
+      }
+
+      .menu-popup {
+        display: none;
+        position: fixed;
+        top: 70px;
+        right: 20px;
+        background: linear-gradient(145deg, var(--bg-card), #16161f);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 20px;
+        max-width: 320px;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        z-index: 10000;
+      }
+
+      .menu-popup.show {
+        display: block;
+        animation: fadeSlideIn 0.3s ease;
+      }
+
+      .menu-section {
+        margin-bottom: 16px;
+      }
+
+      .menu-section:last-child {
+        margin-bottom: 0;
+      }
+
+      .menu-section p {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        line-height: 1.6;
+        margin-bottom: 8px;
+      }
+
+      .menu-section p:last-child {
+        margin-bottom: 0;
+      }
+
+      .menu-section strong {
+        color: var(--text-primary);
+        font-size: 0.9rem;
+      }
+
+      .menu-section a {
+        color: var(--gold);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .menu-section a:hover {
+        color: var(--text-primary);
+      }
+
+      .menu-divider {
+        height: 1px;
+        background: var(--border);
+        margin: 16px 0;
+      }
+
+      .menu-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 4px 8px;
+      }
+
+      .menu-close:hover {
+        color: var(--gold);
+      }
+
+      #google_translate_element {
+        margin-top: 8px;
+      }
+
+      .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+      }
+
+      .goog-te-gadget {
+        font-family: "Work Sans", sans-serif !important;
+      }
+
+      .goog-te-gadget-simple {
+        background-color: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 6px !important;
+        padding: 6px 10px !important;
+        font-size: 0.8rem !important;
+        color: var(--text-primary) !important;
+        width: 100% !important;
+      }
+
+      .goog-te-gadget-simple:hover {
+        border-color: var(--gold) !important;
+      }
+
+      .goog-te-gadget-simple .goog-te-menu-value span {
+        color: var(--text-primary) !important;
+      }
+
+      .goog-te-gadget-icon {
+        display: none !important;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 32px 24px;
+        }
+
+        h1 {
+          font-size: 1.5rem;
+        }
+
+        .step-title {
+          font-size: 1.3rem;
+        }
+
+        .content {
+          font-size: 1rem;
+        }
+
+        button {
+          font-size: 0.95rem;
+          padding: 14px 20px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .menu-badge {
+          top: auto;
+          bottom: 20px;
+          right: auto;
+          left: 20px;
+        }
+
+        .menu-popup {
+          top: auto;
+          bottom: 70px;
+          right: auto;
+          left: 20px;
+          max-width: calc(100vw - 40px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="menu-badge">
+      <button class="menu-btn" onclick="toggleMenu()">
+        <img src="../icons/menu.png" alt="Menu" />
+      </button>
+      <div class="menu-popup" id="menuPopup">
+        <button class="menu-close" onclick="toggleMenu()">×</button>
+
+        <div class="menu-section">
+          <p>
+            <strong
+              ><img
+                src="../icons/language.png"
+                alt="Language"
+                style="
+                  width: 16px;
+                  height: 16px;
+                  vertical-align: middle;
+                  margin-right: 4px;
+                "
+              />
+              Language</strong
+            >
+          </p>
+          <div id="google_translate_element"></div>
+        </div>
+
+        <div class="menu-divider"></div>
+
+        <div class="menu-section">
+          <p><strong>Icon Credits</strong></p>
+          <p>
+            Sparkle icon by
+            <a
+              href="https://www.flaticon.com/free-icons/sparkle"
+              target="_blank"
+              rel="noopener"
+              >kornkun - Flaticon</a
+            >
+          </p>
+          <p>
+            Menu icon by
+            <a
+              href="https://www.flaticon.com/free-icons/menu"
+              target="_blank"
+              rel="noopener"
+              >Cloud Nine - Flaticon</a
+            >
+          </p>
+          <p>
+            Language icon by
+            <a
+              href="https://www.flaticon.com/free-icons/extensible-markup-language"
+              target="_blank"
+              rel="noopener"
+              >Freepik - Flaticon</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="header">
+        <h1>The Fitrah Fallacy</h1>
+        <div class="subtitle">Does Everyone "Deep Down" Know Islam Is True?</div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+        </div>
+        <div class="progress-text" id="progressText">Step 1 of 5</div>
+      </div>
+
+      <div id="step-content">
+        <!-- Dynamic Content -->
+      </div>
+    </div>
+
+    <script>
+      const logicTree = {
+        home: {
+          title: "The Fitrah Fallacy",
+          text: `<p style="margin-bottom: 16px; line-height: 1.8;">Muslims often appeal to <b>fitrah</b> — the Islamic doctrine that all humans are born with innate knowledge of Allah and Islam's truth. When confronted with billions who sincerely reject Islam, the response is: "They're suppressing what they deep down know."</p>
+                
+                <p style="margin-bottom: 16px; line-height: 1.8;">But this doctrine self-destructs when examined carefully. The hadith states: <i>"Every child is born in a state of fitrah, then his parents make him a Jew, Christian, or Magian." (Sahih Muslim 2659a)</i></p>
+                
+                <p style="margin-bottom: 16px; line-height: 1.8;">This creates an impossible problem: if fitrah is vague religious intuition, it doesn't establish Islam specifically. If fitrah is specific knowledge of Islam's truth, it's empirically falsified by reality.</p>
+                
+                <p style="margin-bottom: 16px; line-height: 1.8;">This challenge systematically examines what fitrah must contain, and shows that every formulation either fails to establish Islam or contradicts observable evidence.</p>`,
+          options: [
+            { label: "Begin the Challenge", next: "p1", badge: "progress" },
+          ],
+          isHome: true,
+        },
+        p1: {
+          title: "Premise 1: The Hadith and Religious Diversity",
+          text: "A hadith states: <i>'Every child is born in a state of fitrah, then his parents make him a Jew, Christian, or Magian.' (Sahih Muslim 2659a)</i>. This suggests fitrah is the natural state that gets corrupted into other religions. <b>But what does fitrah actually contain?</b> Is it vague religious intuition, or specific knowledge that Islam is true?",
+          tooltip:
+            "This is the core question: fitrah must be either general or specific. There is no middle ground that escapes the dilemma.",
+          options: [
+            {
+              label: "Fitrah is vague — just a sense of the transcendent",
+              next: "fail_vague",
+              badge: "fail",
+            },
+            {
+              label: "Fitrah is specific — knowledge that Islam is true",
+              next: "p2",
+              badge: "progress",
+            },
+          ],
+          step: 1,
+          total: 5,
+        },
+        fail_vague: {
+          title: "Vague Fitrah Fails to Establish Islam",
+          text: "If fitrah is just a vague sense that 'something transcendent exists,' then it doesn't tell anyone that <b>Islam specifically</b> is true. This vague intuition could equally lead to:<br><br>• Christianity (God is transcendent)<br>• Hinduism (Brahman is ultimate reality)<br>• Deism (a creator exists, no prophets)<br>• Buddhism (transcendent liberation)<br><br>A Hindu could say 'My fitrah led me to Brahman' with equal validity. If fitrah doesn't provide knowledge of Islam specifically, you cannot punish people for not knowing Islam is true when fitrah doesn't give them that information.<br><br><b>Vague fitrah explains why humans are religious. It does not explain why they should be Muslim.</b>",
+          conclusion:
+            "You've conceded that fitrah doesn't provide knowledge that Islam is true. Therefore, non-Muslims are not suppressing knowledge they don't have. The fitrah defense fails to establish Islamic truth claims.",
+          isEnd: true,
+        },
+        p2: {
+          title: "Premise 2: What Makes Islam Distinct?",
+          text: "You claim fitrah provides specific knowledge that Islam is true. But the hadith mentions Judaism and Christianity — both are also <b>monotheistic religions</b>. If fitrah only tells you 'one God exists,' it doesn't distinguish Islam from these Abrahamic faiths. <b>What fundamentally makes Islam different from Judaism and Christianity?</b>",
+          tooltip:
+            "This forces clarity: what specific claims separate Islam from other monotheistic religions?",
+          options: [
+            {
+              label: "Muhammad is the final prophet",
+              next: "p3",
+              badge: "progress",
+            },
+            {
+              label: "The Quran is the literal word of God",
+              next: "p3",
+              badge: "progress",
+            },
+            {
+              label: "Both of these are what distinguish Islam",
+              next: "p3",
+              badge: "progress",
+            },
+          ],
+          step: 2,
+          total: 5,
+        },
+        p3: {
+          title: "Premise 3: Fitrah Must Mean Islam Specifically",
+          text: "Exactly. Judaism and Christianity already believe in one God. The hadith only makes sense if fitrah = <b>Islam specifically</b>, which then gets corrupted by parents into other religions.<br><br>So if fitrah provides specific knowledge, it must include: <b>'Muhammad is the final prophet and the Quran is divine revelation.'</b> Otherwise, why would parents need to 'corrupt' a child toward Judaism if Judaism already reflects monotheism?<br><br><b>This means fitrah is the claim that everyone innately knows Islam's core truth claims. Do you accept this?</b>",
+          tooltip:
+            "This is the logical consequence of specific fitrah: it must contain Islam's distinctive claims, not just generic monotheism.",
+          options: [
+            {
+              label: "Yes, fitrah means knowing Islam is true",
+              next: "p4",
+              badge: "progress",
+            },
+            {
+              label:
+                "No, fitrah means tawhid (strict oneness), not Islam specifically",
+              next: "fail_tawhid",
+              badge: "fail",
+            },
+          ],
+          step: 3,
+          total: 5,
+        },
+        fail_tawhid: {
+          title: "Tawhid Defense Fails",
+          text: "Some argue fitrah refers to <b>tawhid</b> — absolute oneness excluding the Trinity — rather than generic monotheism. But <b>Judaism already satisfies tawhid</b>: strict monotheism, no Trinity, no incarnation, no partners in worship.<br><br>So the hadith problem remains: why would parents need to 'corrupt' a child toward Judaism if Judaism already reflects what fitrah points at? Tawhid doesn't distinguish Islam from Judaism.<br><br>You still end up needing fitrah to mean <b>'Muhammad is the final prophet and the Quran is divine'</b> to make the hadith coherent. The tawhid defense just delays the problem by one step.",
+          conclusion:
+            "The tawhid defense doesn't solve anything. Judaism already reflects tawhid, so fitrah must still include Islam's specific claims to make the hadith work. You're back to claiming everyone knows Muhammad is the final prophet — which is empirically false.",
+          isEnd: true,
+        },
+        p4: {
+          title: "Premise 4: Empirical Test",
+          text: "If everyone innately knows 'Muhammad is the final prophet and the Quran is divine,' we should observe certain patterns. When people encounter Islam, this innate knowledge should activate. <b>What would we expect to see if this were true?</b>",
+          tooltip:
+            "If fitrah is real and specific, it makes testable predictions about human behavior.",
+          options: [
+            {
+              label:
+                "Universal recognition when Islam is presented properly",
+              next: "fail_empirical",
+              badge: "fail",
+            },
+            {
+              label: "No sincere former Muslims (they'd be fighting innate knowledge)",
+              next: "fail_empirical",
+              badge: "fail",
+            },
+            {
+              label: "Instant resonance with Quran across cultures",
+              next: "fail_empirical",
+              badge: "fail",
+            },
+            {
+              label:
+                "All of these — if fitrah is real, we'd see consensus",
+              next: "fail_empirical",
+              badge: "fail",
+            },
+          ],
+          step: 4,
+          total: 5,
+        },
+        fail_empirical: {
+          title: "Empirical Reality Contradicts Fitrah",
+          text: "Exactly — if fitrah provided innate knowledge that Islam is true, we'd see patterns like we do with other innate knowledge (everyone recognizes faces, everyone feels pain). <b>We see the opposite:</b><br><br>• Intelligent, thoughtful people examine Islam and remain unconvinced<br>• Former Muslims who studied Islam deeply and left in good conscience<br>• People raised Muslim who never felt this 'innate knowledge'<br>• Billions who find other religions more compelling<br>• No correlation between education and conversion to Islam<br><br>The claim that everyone innately knows Islam is true is <b>falsified by observable reality</b>. If the knowledge were truly innate and specific, we wouldn't see this pattern of sincere, sustained rejection by thoughtful people.",
+          conclusion:
+            "You've accepted that fitrah would produce observable patterns — but those patterns don't exist. The claim that everyone innately knows Islam is true contradicts empirical reality. Fitrah as specific knowledge is falsified.",
+          isEnd: true,
+        },
+        p5: {
+          title: "The Activation Defense",
+          text: "Some argue fitrah isn't propositional knowledge but a <b>capacity that activates upon genuine encounter with revelation</b> — it's dormant until you properly engage with the Quran. Does this solve the problem?",
+          tooltip:
+            "This is a sophisticated defense attempting to avoid empirical falsification while maintaining fitrah's explanatory power.",
+          options: [
+            {
+              label: "Yes, fitrah activates upon true engagement with revelation",
+              next: "fail_activation",
+              badge: "fail",
+            },
+            {
+              label: "No, this is just moving the goalposts",
+              next: "conclusion_unfalsifiable",
+              badge: "fail",
+            },
+          ],
+          step: 5,
+          total: 5,
+        },
+        fail_activation: {
+          title: "The Activation Defense is Falsified",
+          text: "This defense is empirically testable — and fails. If fitrah activates upon genuine encounter with the Quran, then <b>classical Arab scholars</b> are the perfect test case:<br><br>• Native Arabic speakers with deep linguistic mastery<br>• Direct access to the Quran in its original form<br>• Cultural familiarity with 7th-century Arabian context<br>• Scholarly engagement with the text (not casual reading)<br><br><b>Many examined the Quran directly and rejected it.</b> Pre-Islamic poets, Christian Arab theologians, and later Arab philosophers engaged deeply with the Quran and remained unconvinced. If fitrah activates upon true engagement, why did it fail in these ideal conditions?<br><br>The defense predicts these people should have recognized the Quran's truth. They didn't. The activation theory is falsified.",
+          conclusion:
+            "You've claimed fitrah activates upon genuine encounter with revelation, but the people best positioned to experience this activation — classical Arab scholars with full linguistic and cultural access — failed to recognize it. The defense is empirically falsified.",
+          isEnd: true,
+        },
+        conclusion_unfalsifiable: {
+          title: "Conclusion: Unfalsifiable Circular Reasoning",
+          text: "You've recognized that the activation defense is unfalsifiable:<br><br><i>'You have innate knowledge of Islam.'</i><br><i>'No I don't.'</i><br><i>'That proves you haven't truly engaged with it / you're suppressing it.'</i><br><br>This makes the claim impossible to test or disprove. Any denial becomes proof of the claim. Every religion could make this argument:<br><br>• Christians: 'Everyone knows Jesus is Lord, deniers suppress it'<br>• Hindus: 'Everyone knows Brahman, deniers are blinded by maya'<br>• Atheists: 'Everyone knows God doesn't exist, believers are in denial'<br><br><b>A claim that explains everything explains nothing.</b> If fitrah cannot be falsified by any evidence, it's not a theological doctrine — it's a thought-terminating cliché designed to dismiss sincere rejection without engagement.",
+          conclusion:
+            "You've conceded that fitrah is unfalsifiable circular reasoning. Any claim that treats denial as proof of itself is not evidence — it's an intellectual dead end. The fitrah doctrine cannot do the work Muslims need it to do.",
+          isEnd: true,
+        },
+      };
+
+      let historyStack = [];
+      let currentStep = "home";
+
+      const stepContent = document.getElementById("step-content");
+      const progressBar = document.getElementById("progressBar");
+      const progressText = document.getElementById("progressText");
+
+      function renderStep(stepId) {
+        const step = logicTree[stepId];
+
+        if (step.isHome) {
+          progressBar.style.width = "0%";
+          progressText.textContent = "";
+          document.querySelector(".progress-container").style.display = "none";
+        } else {
+          document.querySelector(".progress-container").style.display = "block";
+          if (step.step && step.total) {
+            const progress = (step.step / step.total) * 100;
+            progressBar.style.width = progress + "%";
+            progressText.textContent = `Step ${step.step} of ${step.total}`;
+          } else {
+            progressBar.style.width = "100%";
+            progressText.textContent = "Conclusion";
+          }
+        }
+
+        let optionsHtml = "";
+        if (step.options) {
+          step.options.forEach((opt) => {
+            let badgeHtml = opt.badge
+              ? `<span class="badge badge-${opt.badge}"></span>`
+              : "";
+            optionsHtml += `<button onclick="handleOption('${opt.next}')">${opt.label}${badgeHtml}</button>`;
+          });
+        }
+
+        let tooltipHtml = step.tooltip
+          ? `<span class="info-tooltip" data-tooltip="${step.tooltip}">?</span>`
+          : "";
+
+        let conclusionHtml = "";
+        if (step.isEnd && step.conclusion) {
+          conclusionHtml = `
+                <div class="conclusion-box">
+                    <p><b>What you just proved:</b> ${step.conclusion}</p>
+                </div>
+                <span class="conceded">✦ CONCEDED ✦</span>
+            `;
+        }
+
+        let controlsHtml = `
+            <div class="controls">
+                <button class="control-btn" onclick="goBack()" ${
+                  historyStack.length === 0 ? 'style="visibility:hidden;"' : ""
+                }>← Go Back</button>
+                <button class="control-btn" onclick="location.href='../index.html'">← All Arguments</button>
+                <button class="control-btn" onclick="restart()">Restart ↺</button>
+            </div>
+        `;
+
+        stepContent.innerHTML = `
+            <div class="step-title">${step.title}${tooltipHtml}</div>
+            <div class="content">${step.text}</div>
+            <div class="options">${optionsHtml}</div>
+            ${conclusionHtml}
+            ${controlsHtml}
+        `;
+
+        stepContent.style.animation = "none";
+        setTimeout(() => {
+          stepContent.style.animation =
+            "fadeSlideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1)";
+        }, 10);
+      }
+
+      function handleOption(nextStepId) {
+        historyStack.push(currentStep);
+        currentStep = nextStepId;
+        renderStep(currentStep);
+      }
+
+      function goBack() {
+        if (historyStack.length > 0) {
+          currentStep = historyStack.pop();
+          renderStep(currentStep);
+        }
+      }
+
+      function restart() {
+        historyStack = [];
+        currentStep = "home";
+        renderStep(currentStep);
+      }
+
+      function toggleMenu() {
+        document.getElementById("menuPopup").classList.toggle("show");
+      };
+
+      renderStep("home");
+    </script>
+
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            includedLanguages: "ar,ur,tr,fa,id,ms,bn,hi,fr,es,de,ru,zh-CN",
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false,
+          },
+          "google_translate_element"
+        );
+      }
+    </script>
+    <script
+      type="text/javascript"
+      src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+    ></script>
+  </body>
+</html>
